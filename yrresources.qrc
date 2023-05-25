@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/svgs">
+        <file>media/YRFrame.svg</file>
+        <file>media/Black_LeverBack.svg</file>
+        <file>media/Black_LeverForward.svg</file>
+        <file>media/Black_LeverMid.svg</file>
+        <file>media/Blue_LeverBack.svg</file>
+        <file>media/Blue_LeverForward.svg</file>
+        <file>media/Blue_LeverMid.svg</file>
+        <file>media/Red_LeverBack.svg</file>
+        <file>media/Red_LeverForward.svg</file>
+        <file>media/Red_LeverMid.svg</file>
+        <file>media/White_LeverBack.svg</file>
+        <file>media/White_LeverForward.svg</file>
+        <file>media/White_LeverMid.svg</file>
+    </qresource>
+    <qresource prefix="/audio">
+        <file>audio/lever_fail.wav</file>
+        <file>audio/lever_move_1.wav</file>
+    </qresource>
+</RCC>
