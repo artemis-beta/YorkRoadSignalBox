@@ -9,18 +9,27 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    blocksection.cxx \
     framelever.cxx \
+    interlocking.cxx \
     leverframe.cxx \
     main.cpp \
     signal.cxx \
+    signalindicator.cxx \
+    trackcircuit.cxx \
     yrmainwindow.cxx
 
 HEADERS += \
+    blocksection.hxx \
     framelever.hxx \
     global_params.hxx \
+    interlocking.hxx \
     leverframe.hxx \
+    points.hxx \
     scaling.hxx \
     signal.hxx \
+    signalindicator.hxx \
+    trackcircuit.hxx \
     yrmainwindow.hxx
 
 FORMS += \

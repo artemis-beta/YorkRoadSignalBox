@@ -28,17 +28,35 @@ YRB::LeverFrame::LeverFrame(QWidget* parent)
     _lever_failed->setSource(QUrl::fromLocalFile(":/audio/audio/lever_fail.wav"));
     _lever_sound->setSource(QUrl::fromLocalFile(":/audio/audio/lever_move_1.wav"));
 
-//    connect(_levers[13], SIGNAL(sendCurrentLeverDestination(EWRB::LeverState)), this, SLOT(updatePointsInd13(EWRB::LeverState)));
-//    connect(_levers[14], SIGNAL(sendCurrentLeverDestination(EWRB::LeverState)), this, SLOT(updatePointsInd14(EWRB::LeverState)));
-//    connect(_levers[15], SIGNAL(sendCurrentLeverDestination(EWRB::LeverState)), this, SLOT(updatePointsInd15(EWRB::LeverState)));
-//    connect(_levers[17], SIGNAL(sendCurrentLeverDestination(EWRB::LeverState)), this, SLOT(updatePointsInd17(EWRB::LeverState)));
-//    connect(_levers[19], SIGNAL(sendCurrentLeverDestination(EWRB::LeverState)), this, SLOT(updatePointsInd19(EWRB::LeverState)));
-//    connect(_levers[20], SIGNAL(sendCurrentLeverDestination(EWRB::LeverState)), this, SLOT(updatePointsInd20(EWRB::LeverState)));
-//    connect(_levers[21], SIGNAL(sendCurrentLeverDestination(EWRB::LeverState)), this, SLOT(updatePointsInd21(EWRB::LeverState)));
-//    connect(_levers[22], SIGNAL(sendCurrentLeverDestination(EWRB::LeverState)), this, SLOT(updatePointsInd22(EWRB::LeverState)));
-//    connect(_levers[23], SIGNAL(sendCurrentLeverDestination(EWRB::LeverState)), this, SLOT(updatePointsInd23(EWRB::LeverState)));
-//    connect(_levers[26], SIGNAL(sendCurrentLeverDestination(EWRB::LeverState)), this, SLOT(updatePointsInd26(EWRB::LeverState)));
-//    connect(_levers[27], SIGNAL(sendCurrentLeverDestination(EWRB::LeverState)), this, SLOT(updatePointsInd27(EWRB::LeverState)));
+}
 
+void YRB::LeverFrame::update(const int& i)
+{
+    qDebug() << "Running Frame Update...";
 
+    if(i == -1)
+    {
+
+        for(auto si : _sig_indicators)
+        {
+            si->update();
+        }
+    }
+
+    else
+    {
+        if(_sig_indicators.contains(i))_sig_indicators[i]->update();
+    }
+
+    for(const auto& tc : track_circuits_) {
+        tc->update();
+    }
+
+}
+
+void YRB::LeverFrame::placeSigIndicators()
+{
+    _sig_indicators[2]->PlaceAt(scaler_->scale_width(155), scaler_->scale_height(136.5));
+    _sig_indicators[3]->PlaceAt(scaler_->scale_width(336), scaler_->scale_height(124));
+    _sig_indicators[4]->PlaceAt(scaler_->scale_width(336), scaler_->scale_height(166));
 }

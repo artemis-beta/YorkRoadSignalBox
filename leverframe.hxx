@@ -12,6 +12,8 @@
 
 #include "scaling.hxx"
 #include "framelever.hxx"
+#include "trackcircuit.hxx"
+#include "signalindicator.hxx"
 
 namespace YRB
 {
@@ -23,6 +25,8 @@ namespace YRB
             QSoundEffect* _lever_failed = new QSoundEffect;
             QMap<int, FrameLever*> _levers;
             const Scaler* scaler_ = new Scaler;
+            QMap<QString, TrackCircuit*> track_circuits_;
+            QMap<int, SignalIndicator*> _sig_indicators;
             QWidget* _parent = nullptr;
             QSvgWidget* _frame_svg = nullptr;
             void _play_failed() {_lever_failed->play();}
@@ -42,6 +46,15 @@ namespace YRB
                 else _play_failed();
                 _levers[i]->moveLever(lever_state, points_move);
             }
+            QMap<QString, TrackCircuit*> getTrackCircuits() {
+                return track_circuits_;
+            }
+            void addSignalMapIndicator(BlockSection* section)
+            {
+                if(!section->getBlockSignal()) return;
+                _sig_indicators[section->getBlockSignal()->id()] = new SignalIndicator(_parent, section);
+            }
+            void placeSigIndicators();
     };
 };
 #endif // LEVERFRAME_HXX

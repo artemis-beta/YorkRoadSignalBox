@@ -13,6 +13,8 @@
         <file>media/White_LeverBack.svg</file>
         <file>media/White_LeverForward.svg</file>
         <file>media/White_LeverMid.svg</file>
+        <file>media/Sig_Off.svg</file>
+        <file>media/Sig_On.svg</file>
     </qresource>
     <qresource prefix="/audio">
         <file>audio/lever_fail.wav</file>
