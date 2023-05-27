@@ -7,7 +7,7 @@ YRB::InterLocking::InterLocking(YRB::LeverFrame* lever_frame)
     // Qt is not happy without having at least one template entry
 
     _signal_lever_connections = {{1,{new FrameLever, {new Signal, YRB::SignalState::Off}}}};
-    _point_lever_connections = {{13, {new FrameLever, new Points}}};
+    _point_lever_connections = {{6, {new FrameLever, new Points}}};
 
     _setup_block_sections();
     _add_points();
@@ -78,12 +78,11 @@ void YRB::InterLocking::update(const int& i)
         }
     }
 
-
-
 }
 
 void YRB::InterLocking::_perform_action(const int& i)
 {
+     qDebug() << "Lever state: " << ((_lever_frame->operator[](i)->getState() == YRB::LeverState::Off) ? "Off" : "On");
     if(_signal_lever_connections.contains(i))
     {
         lever_active_signal_state state = _signal_lever_connections[i].second;
@@ -103,6 +102,18 @@ void YRB::InterLocking::_perform_action(const int& i)
         {
             qDebug() << "Clearing Signal " << state.first->id() << " to Off: Aspect " << int(state.first->getState());
             state.first->tryClear(state.second);
+        }
+    }
+    else if(_point_lever_connections.contains(i))
+    {
+        if(_lever_frame->operator[](i)->getState() == YRB::LeverState::On)
+        {
+            qDebug() << "Setting Points to Reverse";
+            _point_lever_connections[i].second->setState(YRB::PointsState::Reverse);
+        }
+        else {
+            qDebug() << "Setting Points to Normal";
+            _point_lever_connections[i].second->setState(YRB::PointsState::Normal);
         }
     }
 }
@@ -138,6 +149,7 @@ void YRB::InterLocking::_connect(const int& id, YRB::HomeLever* lever, YRB::Sign
 void YRB::InterLocking::_connect(const int& id, YRB::PointsLever* lever, YRB::Points* points)
 {
     _point_lever_connections[id] = {lever, points};
+    connect(points, &YRB::Points::pointsStateChanged, this, &YRB::InterLocking::pointsUpdate);
 }
 
 void YRB::InterLocking::_setup_block_sections()

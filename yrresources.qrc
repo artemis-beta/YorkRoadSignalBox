@@ -15,9 +15,12 @@
         <file>media/White_LeverMid.svg</file>
         <file>media/Sig_Off.svg</file>
         <file>media/Sig_On.svg</file>
+        <file>media/PointsIndicatorOff.svg</file>
+        <file>media/PointsIndicatorOn.svg</file>
     </qresource>
     <qresource prefix="/audio">
         <file>audio/lever_fail.wav</file>
         <file>audio/lever_move_1.wav</file>
+        <file>audio/panel_update.wav</file>
     </qresource>
 </RCC>

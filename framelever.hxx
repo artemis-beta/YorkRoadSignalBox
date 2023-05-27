@@ -6,6 +6,7 @@
 #include <QMap>
 #include <QObject>
 #include <QDebug>
+#include <QThread>
 #include <QPushButton>
 #include <QScreen>
 #include <QGuiApplication>
@@ -13,48 +14,14 @@
 #include <QTimer>
 
 #include "global_params.hxx"
-#include "scaling.hxx"
 
 namespace YRB
 {
-    class FrameLever;
-
-    class PointsChange : public QObject
-    {
-        Q_OBJECT
-        private:
-            FrameLever* _parent;
-            QTimer* _timer = new QTimer();
-            bool _point_finished = false;
-        public:
-            PointsChange(FrameLever* _parent);
-            bool getState();
-            void run()
-            {
-                _point_finished = false;
-                _timer->start(10);
-                _point_finished = true;
-            }
-        public slots:
-            void timerEnded()
-            {
-                if(_point_finished)
-                {
-                    emit pointFinished();
-                }
-                _point_finished = false;
-            }
-
-        signals:
-            void pointFinished();
-    };
-
     class FrameLever : public QObject
     {
         Q_OBJECT
         private:
             QWidget* _parent = nullptr;
-            PointsChange* _points_change = new PointsChange(this);
             LeverType _type;
             int _coords[2] = {0,0};
             const int _id = -1;
@@ -65,7 +32,6 @@ namespace YRB
             FrameLever(const int& id, const QString& lever_name, QWidget* parent, LeverType type) :
                 _parent(parent), _type(type), _id(id)
             {
-                connect(_points_change, SIGNAL(pointFinished()), this, SLOT(pointsChangedFinished()));
             }
             LeverState reverse(LeverState state) const
             {

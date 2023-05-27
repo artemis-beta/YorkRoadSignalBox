@@ -24,12 +24,12 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="6.2217172"
-     inkscape:cx="173.42479"
-     inkscape:cy="149.63715"
+     inkscape:zoom="8.7988368"
+     inkscape:cx="199.74231"
+     inkscape:cy="87.397916"
      inkscape:window-width="1278"
      inkscape:window-height="1360"
-     inkscape:window-x="-7"
+     inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
      inkscape:current-layer="g11929"
@@ -106,7 +106,7 @@
        fx="150.24902"
        fy="74.948563"
        r="150.12758"
-       gradientTransform="matrix(2.0383451,0,0,0.87773783,-156.01034,9.1633727)"
+       gradientTransform="matrix(2.0383451,0,0,0.87773783,-154.90364,9.1633727)"
        gradientUnits="userSpaceOnUse" />
     <linearGradient
        inkscape:collect="always"
@@ -196,7 +196,7 @@
          id="rect86009"
          width="300.25516"
          height="150"
-         x="0.12143755"
+         x="1.2281392"
          y="-0.051439922"
          inkscape:export-filename="C:\Users\kzare\Documents\GitHub\YorkRoadSignalBox\media\YorkRoadFramepng"
          inkscape:export-xdpi="96"
@@ -239,36 +239,18 @@
          inkscape:export-filename="C:\Users\kzare\Documents\GitHub\YorkRoadSignalBox\media\YorkRoadFramepng"
          inkscape:export-xdpi="96"
          inkscape:export-ydpi="96" />
-      <g
-         id="g51631"
-         inkscape:export-filename="C:\Users\kzare\Documents\GitHub\YorkRoadSignalBox\media\YorkRoadFramepng"
-         inkscape:export-xdpi="96"
-         inkscape:export-ydpi="96">
-        <text
-           xml:space="preserve"
-           style="font-style:normal;font-weight:normal;font-size:15.8575px;line-height:1.25;font-family:sans-serif;letter-spacing:1.64917px;word-spacing:0px;display:inline;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.396436px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-           x="92.718079"
-           y="30.549282"
-           id="text7127"
-           transform="scale(1.0001569,0.99984313)"><tspan
-             sodipodi:role="line"
-             id="tspan7125"
-             x="92.718079"
-             y="30.549282"
-             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.396436px;stroke-opacity:1">YORK  ROAD</tspan></text>
-        <text
-           xml:space="preserve"
-           style="font-style:normal;font-weight:normal;font-size:15.8575px;line-height:1.25;font-family:sans-serif;letter-spacing:1.64917px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.396436px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-           x="92.188995"
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:15.8575px;line-height:1.25;font-family:sans-serif;letter-spacing:1.64917px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.396436px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="93.659157"
+         y="29.731384"
+         id="text7127-8"
+         transform="scale(1.0001569,0.99984313)"><tspan
+           sodipodi:role="line"
+           id="tspan7125-6"
+           x="93.659157"
            y="29.731384"
-           id="text7127-8"
-           transform="scale(1.0001569,0.99984313)"><tspan
-             sodipodi:role="line"
-             id="tspan7125-6"
-             x="92.188995"
-             y="29.731384"
-             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';stroke-width:0.396436px">YORK  ROAD</tspan></text>
-      </g>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Arial;-inkscape-font-specification:'Arial Bold';stroke-width:0.396436px">YORK  ROAD</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:7.58354px;line-height:1.25;font-family:sans-serif;letter-spacing:0.788683px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.189588px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"

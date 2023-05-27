@@ -6,6 +6,25 @@ YRB::Graphics::Graphics(QWidget* parent)
     _frame_svg = new QSvgWidget(QString(":/svgs/media/YRFrame.svg"), _parent);
     _frame_svg->setFixedSize(_scaler->screen_width(), _scaler->screen_height());
 
+    _point_ind_svgs = {
+        {YRB::PointsState::Normal, {
+                 {YRB::SignalState::On, new QSvgWidget(":/svgs/media/PointsIndicatorOn.svg", _parent)},
+                 {YRB::SignalState::Off, new QSvgWidget(":/svgs/media/PointsIndicatorOff.svg", _parent)}
+            }
+        },
+        {YRB::PointsState::Reverse, {
+             {YRB::SignalState::On, new QSvgWidget(":/svgs/media/PointsIndicatorOn.svg", _parent)},
+             {YRB::SignalState::Off, new QSvgWidget(":/svgs/media/PointsIndicatorOff.svg", _parent)}
+            }
+        }
+    };
+
+    _set_point_indicator_position(YRB::PointsState::Normal, _scaler->scale_width(156.5), _scaler->scale_height(212));
+    _set_point_indicator_size(YRB::PointsState::Normal, _scaler->scale_width(20), _scaler->scale_height(20));
+    _set_point_indicator_position(YRB::PointsState::Reverse, _scaler->scale_width(156.5), _scaler->scale_height(249.25));
+    _set_point_indicator_size(YRB::PointsState::Reverse, _scaler->scale_width(20), _scaler->scale_height(20));
+
+
     for(const int& sig_id : signal_ids)
     {
         _map_indicator_svgs[sig_id] = {
@@ -45,6 +64,22 @@ YRB::Graphics::Graphics(QWidget* parent)
         _set_lever_size_at(id, _scaler->scale_width(25), _scaler->scale_height(100));
         _lever_svgs[id][LeverState::On]->hide();
         _lever_svgs[id][LeverState::Mid]->hide();
+        _point_ind_svgs[YRB::PointsState::Normal][YRB::SignalState::On]->show();
+        _point_ind_svgs[YRB::PointsState::Normal][YRB::SignalState::Off]->hide();
+        _point_ind_svgs[YRB::PointsState::Reverse][YRB::SignalState::On]->hide();
+        _point_ind_svgs[YRB::PointsState::Reverse][YRB::SignalState::Off]->show();
+    }
+}
+
+void YRB::Graphics::_set_point_indicator_position(const YRB::PointsState state, const int x, const int y) {
+    for(QSvgWidget* graphic : _point_ind_svgs[state]) {
+        graphic->move(x, y);
+    }
+}
+
+void YRB::Graphics::_set_point_indicator_size(const YRB::PointsState state, const int x, const int y) {
+    for(QSvgWidget* graphic : _point_ind_svgs[state]) {
+        graphic->setFixedSize(x, y);
     }
 }
 

@@ -18,14 +18,13 @@ public:
     YRMainWindow(QWidget *parent = nullptr);
     YRB::LeverFrame* _lever_frame = new YRB::LeverFrame(this);
     YRB::InterLocking* _interlocking = new YRB::InterLocking(_lever_frame);
-    YRB::Graphics* graphics_ = new YRB::Graphics(this);
+    YRB::Graphics* _graphics = new YRB::Graphics(this);
     QList<QThread*> _threads = {};
     ~YRMainWindow();
 
 private:
     Ui::YRMainWindow *ui;
     void _lever_action(const int& i);
-    void _add_indicators();
     QMap<int, QPushButton*> _lever_frame_buttons;
 };
 #endif // YRMAINWINDOW_HXX

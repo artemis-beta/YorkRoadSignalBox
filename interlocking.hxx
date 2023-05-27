@@ -53,9 +53,14 @@ namespace YRB
             void update(const int& id);
         signals:
             void broadcastSignal(int id, YRB::SignalState state);
+            void broadcastPoints(YRB::PointsState state);
         public slots:
             void signalAspectUpdate(int id, YRB::SignalState state) {
                 emit broadcastSignal(id, state);
+            }
+            void pointsUpdate(YRB::PointsState state) {
+                qDebug() << "Updating points";
+                emit broadcastPoints(state);
             }
 
     };

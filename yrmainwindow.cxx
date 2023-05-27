@@ -6,10 +6,9 @@ YRMainWindow::YRMainWindow(QWidget *parent)
     , ui(new Ui::YRMainWindow)
 {
     ui->setupUi(this);
+    this->setWindowTitle("York Road Signal Frame");
     const YRB::Scaler* scaler_ = new YRB::Scaler;
     this->setFixedSize(scaler_->screen_width(), scaler_->screen_height());
-
-    _add_indicators();
 
     for(int i{1}; i < 12; ++i)
     {
@@ -21,8 +20,11 @@ YRMainWindow::YRMainWindow(QWidget *parent)
     }
 
     _lever_frame->update();
-    connect(_lever_frame, &YRB::LeverFrame::frameUpdate, graphics_, &YRB::Graphics::updateLeverGraphic);
-    connect(_interlocking, &YRB::InterLocking::broadcastSignal, graphics_, &YRB::Graphics::updateSignalGraphic);
+    connect(_lever_frame, &YRB::LeverFrame::frameUpdate, _graphics, &YRB::Graphics::updateLeverGraphic);
+    connect(_interlocking, &YRB::InterLocking::broadcastSignal, _graphics, &YRB::Graphics::updateSignalGraphic);
+    connect(_interlocking, &YRB::InterLocking::broadcastPoints, _graphics, &YRB::Graphics::updatePointsGraphic);
+    connect(_interlocking, &YRB::InterLocking::broadcastSignal, _lever_frame, &YRB::LeverFrame::panelUpdate);
+    connect(_interlocking, &YRB::InterLocking::broadcastPoints, _lever_frame, &YRB::LeverFrame::panelUpdate);
 }
 
 YRMainWindow::~YRMainWindow()
@@ -39,11 +41,4 @@ void YRMainWindow::_lever_action(const int &i)
         return;
     }
     _lever_frame->update();
-}
-
-void YRMainWindow::_add_indicators()
-{
-    _lever_frame->addSignalMapIndicator(_interlocking->getBlockSection('C'));
-    _lever_frame->addSignalMapIndicator(_interlocking->getBlockSection('E'));
-    _lever_frame->addSignalMapIndicator(_interlocking->getBlockSection('F'));
 }
