@@ -32,9 +32,9 @@ void YRB::InterLocking::_create_logic_table()
                  {YRB::LeverState::Off, {}}
                 };
     _logic[6] = {{YRB::LeverState::On,
-                  {{2, YRB::LeverState::Off}, {3, YRB::LeverState::Off}}},
+                  {{4, YRB::LeverState::Off}, {3, YRB::LeverState::Off}}},
                  {YRB::LeverState::Off,
-                  {{2, YRB::LeverState::Off}, {3, YRB::LeverState::Off}}},
+                  {{4, YRB::LeverState::Off}, {3, YRB::LeverState::Off}}},
                 };
 }
 
@@ -55,7 +55,7 @@ void YRB::InterLocking::update(const int& i)
         if(toLock) return;
     }
 
-    qDebug() << "Moving Lever " << i;
+    qDebug() << "Interlocking for Lever " << i;
 
     // As lever move successful, lock all levers which have this lever as a requirement and the state is not met
 
@@ -111,6 +111,8 @@ bool YRB::InterLocking::Query(const int& id)
 {
     update(id);
 
+    qDebug() << "Moving Lever " << id;
+
     if(_lever_frame->operator[](id)->isLocked())
     {
         _lever_frame->moveLever(id, YRB::LeverState::Mid, id == _points->id());
@@ -130,6 +132,7 @@ void YRB::InterLocking::_connect(const int& id, YRB::HomeLever* lever, YRB::Sign
 {
     _signal_lever_connections[id] = {};
     _signal_lever_connections[id] = {lever, {signal, aspect}};
+    connect(signal, &YRB::Signal::signalAspectChanged, this, &YRB::InterLocking::signalAspectUpdate);
 }
 
 void YRB::InterLocking::_connect(const int& id, YRB::PointsLever* lever, YRB::Points* points)

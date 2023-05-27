@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "leverframe.hxx"
 #include "interlocking.hxx"
+#include "graphics.hxx"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class YRMainWindow; }
@@ -17,6 +18,8 @@ public:
     YRMainWindow(QWidget *parent = nullptr);
     YRB::LeverFrame* _lever_frame = new YRB::LeverFrame(this);
     YRB::InterLocking* _interlocking = new YRB::InterLocking(_lever_frame);
+    YRB::Graphics* graphics_ = new YRB::Graphics(this);
+    QList<QThread*> _threads = {};
     ~YRMainWindow();
 
 private:

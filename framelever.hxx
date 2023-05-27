@@ -54,7 +54,6 @@ namespace YRB
         Q_OBJECT
         private:
             QWidget* _parent = nullptr;
-            QMap<LeverState, QSvgWidget*> _svgs = {{}};
             PointsChange* _points_change = new PointsChange(this);
             LeverType _type;
             int _coords[2] = {0,0};
@@ -64,36 +63,23 @@ namespace YRB
         public:
             FrameLever(){}
             FrameLever(const int& id, const QString& lever_name, QWidget* parent, LeverType type) :
-                _id(id), _parent(parent), _type(type)
+                _parent(parent), _type(type), _id(id)
             {
-                const Scaler* scaler_ = new Scaler;
                 connect(_points_change, SIGNAL(pointFinished()), this, SLOT(pointsChangedFinished()));
-                _svgs[LeverState::Off] = new QSvgWidget(QString(":/svgs/media/")+lever_name+QString("_LeverBack.svg"), _parent);
-                _svgs[LeverState::Off]->setFixedSize(scaler_->scale_width(25), scaler_->scale_height(100));
-                _svgs[LeverState::Off]->hide();
-                _svgs[LeverState::Mid] = new QSvgWidget(QString(":/svgs/media/")+lever_name+QString("_LeverMid.svg"), _parent);
-                _svgs[LeverState::Mid]->setFixedSize(scaler_->scale_width(25), scaler_->scale_height(100));
-                _svgs[LeverState::Mid]->hide();
-                _svgs[LeverState::On] = new QSvgWidget(QString(":/svgs/media/")+lever_name+QString("_LeverForward.svg"), _parent);
-                _svgs[LeverState::On]->setFixedSize(scaler_->scale_width(25), scaler_->scale_height(100));
-                _svgs[LeverState::On]->hide();
             }
             LeverState reverse(LeverState state) const
             {
                 return (state == LeverState::On) ? LeverState::Off : LeverState::On;
             }
-            QSvgWidget* getWidget() const {return _svgs[_current_state];}
-            void PlaceAt(const int& x, const int& y);
-            void hideSVG();
-            void showSVG();
             void moveLever(LeverState state = LeverState::Off, bool points_delay=false);
             void Lock(bool lock_lever) {_locked = lock_lever;}
             bool isLocked() const {return _locked;}
             LeverType getType() const {return _type;}
             LeverState getState() const {return _current_state;}
             int id() const {return _id;}
+            void graphics_refresh();
         signals:
-            void sendCurrentLeverDestination(LeverState state);
+            void leverUpdate(int id, YRB::LeverState state);
         public slots:
             void pointsChangedFinished();
     };
@@ -113,13 +99,13 @@ namespace YRB
     class FacingPointLockLever : public FrameLever
     {
         public:
-            FacingPointLockLever(const int& id, QWidget* parent) : FrameLever(id, QString("Blue"), parent, LeverType::Points){}
+            FacingPointLockLever(const int& id, QWidget* parent) : FrameLever(id, QString("Blue"), parent, LeverType::PointLock){}
     };
 
     class SpareLever : public FrameLever
     {
         public:
-            SpareLever(const int& id, QWidget* parent) : FrameLever(id, QString("White"), parent, LeverType::Points){}
+            SpareLever(const int& id, QWidget* parent) : FrameLever(id, QString("White"), parent, LeverType::Spare){}
     };
 };
 

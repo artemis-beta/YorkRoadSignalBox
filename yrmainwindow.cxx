@@ -20,7 +20,9 @@ YRMainWindow::YRMainWindow(QWidget *parent)
         _lever_frame_buttons[i]->setStyleSheet("QPushButton { background-color: transparent; border: 0px }");
     }
 
-    _lever_frame->placeSigIndicators();
+    _lever_frame->update();
+    connect(_lever_frame, &YRB::LeverFrame::frameUpdate, graphics_, &YRB::Graphics::updateLeverGraphic);
+    connect(_interlocking, &YRB::InterLocking::broadcastSignal, graphics_, &YRB::Graphics::updateSignalGraphic);
 }
 
 YRMainWindow::~YRMainWindow()
@@ -36,7 +38,7 @@ void YRMainWindow::_lever_action(const int &i)
         qDebug() << "Invalid Move";
         return;
     }
-    _lever_frame->update(i);
+    _lever_frame->update();
 }
 
 void YRMainWindow::_add_indicators()

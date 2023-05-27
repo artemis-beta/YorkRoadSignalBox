@@ -11,11 +11,10 @@ CONFIG += c++17
 SOURCES += \
     blocksection.cxx \
     framelever.cxx \
+    graphics.cxx \
     interlocking.cxx \
     leverframe.cxx \
     main.cpp \
-    signal.cxx \
-    signalindicator.cxx \
     trackcircuit.cxx \
     yrmainwindow.cxx
 
@@ -23,12 +22,12 @@ HEADERS += \
     blocksection.hxx \
     framelever.hxx \
     global_params.hxx \
+    graphics.hxx \
     interlocking.hxx \
     leverframe.hxx \
     points.hxx \
     scaling.hxx \
     signal.hxx \
-    signalindicator.hxx \
     trackcircuit.hxx \
     yrmainwindow.hxx
 

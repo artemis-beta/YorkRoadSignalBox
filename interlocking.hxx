@@ -3,6 +3,7 @@
 
 #include <QPair>
 #include <QSoundEffect>
+#include <QObject>
 
 #include "signal.hxx"
 #include "points.hxx"
@@ -19,8 +20,9 @@ namespace YRB
     typedef QPair<Signal*, SignalState> lever_active_signal_state;
     typedef QMap<int, QPair<FrameLever*, lever_active_signal_state>> signal_connection;
 
-    class InterLocking
+    class InterLocking : public QObject
     {
+        Q_OBJECT
         private:
             LeverFrame* _lever_frame;
             interlock_logic _logic;
@@ -49,6 +51,12 @@ namespace YRB
             BlockSection* getBlockSection(const char& id) const {return _block_sections[id];}
             bool Query(const int& id);
             void update(const int& id);
+        signals:
+            void broadcastSignal(int id, YRB::SignalState state);
+        public slots:
+            void signalAspectUpdate(int id, YRB::SignalState state) {
+                emit broadcastSignal(id, state);
+            }
 
     };
 };

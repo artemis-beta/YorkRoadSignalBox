@@ -3,9 +3,6 @@
 YRB::LeverFrame::LeverFrame(QWidget* parent)
 {
     _parent = parent;
-    _frame_svg = new QSvgWidget(QString(":/svgs/media/YRFrame.svg"), _parent);
-    const Scaler* scaler_ = new Scaler;
-    _frame_svg->setFixedSize(scaler_->screen_width(), scaler_->screen_height());
 
     for(int i{1}; i < 12; ++i)
     {
@@ -21,8 +18,7 @@ YRB::LeverFrame::LeverFrame(QWidget* parent)
         else {
             _levers[i] = new YRB::PointsLever(i, _parent);
         }
-        _levers[i]->PlaceAt(scaler_->scale_width(32+(i-1)*45), 0.72*scaler_->screen_height());
-        _levers[i]->showSVG();
+        connect(_levers[i], &YRB::FrameLever::leverUpdate, this, &YRB::LeverFrame::frameLeverUpdate);
     }
 
     _lever_failed->setSource(QUrl::fromLocalFile(":/audio/audio/lever_fail.wav"));
@@ -30,33 +26,11 @@ YRB::LeverFrame::LeverFrame(QWidget* parent)
 
 }
 
-void YRB::LeverFrame::update(const int& i)
+void YRB::LeverFrame::update()
 {
     qDebug() << "Running Frame Update...";
-
-    if(i == -1)
-    {
-
-        for(auto si : _sig_indicators)
-        {
-            si->update();
-        }
-    }
-
-    else
-    {
-        if(_sig_indicators.contains(i))_sig_indicators[i]->update();
-    }
 
     for(const auto& tc : track_circuits_) {
         tc->update();
     }
-
-}
-
-void YRB::LeverFrame::placeSigIndicators()
-{
-    _sig_indicators[2]->PlaceAt(scaler_->scale_width(155), scaler_->scale_height(136.5));
-    _sig_indicators[3]->PlaceAt(scaler_->scale_width(336), scaler_->scale_height(124));
-    _sig_indicators[4]->PlaceAt(scaler_->scale_width(336), scaler_->scale_height(166));
 }

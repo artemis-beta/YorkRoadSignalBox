@@ -9,6 +9,7 @@
 #include <QGuiApplication>
 #include <QScreen>
 #include <QSoundEffect>
+#include <QThread>
 
 #include "scaling.hxx"
 #include "framelever.hxx"
@@ -28,7 +29,6 @@ namespace YRB
             QMap<QString, TrackCircuit*> track_circuits_;
             QMap<int, SignalIndicator*> _sig_indicators;
             QWidget* _parent = nullptr;
-            QSvgWidget* _frame_svg = nullptr;
             void _play_failed() {_lever_failed->play();}
             void _play_lever_sound() {_lever_sound->play();}
         public:
@@ -38,7 +38,7 @@ namespace YRB
                 return _levers[i];
             }
             QList<int> levers() const {return _levers.keys();}
-            void update(const int& i=-1);
+            void update();
             void moveLever(const int& i, LeverState lever_state, bool points_move)
             {
                 if(_levers[i]->getState() == LeverState::Mid) _play_failed();
@@ -54,7 +54,12 @@ namespace YRB
                 if(!section->getBlockSignal()) return;
                 _sig_indicators[section->getBlockSignal()->id()] = new SignalIndicator(_parent, section);
             }
-            void placeSigIndicators();
+        signals:
+            void frameUpdate(int id, YRB::LeverState state);
+        public slots:
+            void frameLeverUpdate(int id, YRB::LeverState state) {
+                emit frameUpdate(id, state);
+            }
     };
 };
 #endif // LEVERFRAME_HXX

@@ -8,9 +8,7 @@ namespace YRB
     enum class SignalState
     {
         On,
-        Off,
-        OffJctLeft,
-        OffJctRight
+        Off
     };
 
     enum class LeverState
@@ -19,6 +17,7 @@ namespace YRB
         Mid,
         On
     };
+
 
     enum class PointsState
     {
@@ -35,8 +34,27 @@ namespace YRB
     enum class LeverType
     {
         Signal,
-        Points
+        Points,
+        PointLock,
+        Spare
     };
+
+    const QList<char> block_ids{'A', 'B', 'C', 'D', 'E', 'F', 'G'};
+    const QMap<int, LeverType> levers{
+        {1, LeverType::Spare},
+        {2, LeverType::Signal},
+        {3, LeverType::Signal},
+        {4, LeverType::Signal},
+        {5, LeverType::PointLock},
+        {6, LeverType::Points},
+        {7, LeverType::Spare},
+        {8, LeverType::Spare},
+        {9, LeverType::Spare},
+        {10, LeverType::Spare},
+        {11, LeverType::Spare}
+    };
+    const QList<int> signal_ids{2, 3, 4};
+    const QList<int> points_ids{6};
 
 };
 
