@@ -13,6 +13,7 @@ namespace YRB {
     QSvgWidget* _frame_svg = nullptr;
     QMap<int, QMap<SignalState, QSvgWidget*>> _map_indicator_svgs;
     QMap<int, QMap<LeverState, QSvgWidget*>> _lever_svgs;
+    QMap<char, QMap<SignalState, QSvgWidget*>> _block_svgs;
     QMap<PointsState, QMap<SignalState, QSvgWidget*>> _point_ind_svgs;
     Scaler* _scaler = new Scaler;
     void _place_signal_at(const int id, const int x, const int y);
@@ -21,6 +22,8 @@ namespace YRB {
     void _set_signal_size_at(const int id, const int x, const int y);
     void _set_point_indicator_size(const YRB::PointsState state, const int x, const int y);
     void _set_point_indicator_position(const YRB::PointsState state, const int x, const int y);
+    void _set_block_position(const char block, const int x, const int y);
+    void _set_block_size(const char block, const int x, const int y);
     public:
         Graphics(QWidget* parent);
     public slots:

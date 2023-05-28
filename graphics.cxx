@@ -24,6 +24,34 @@ YRB::Graphics::Graphics(QWidget* parent)
     _set_point_indicator_position(YRB::PointsState::Reverse, _scaler->scale_width(156.5), _scaler->scale_height(249.25));
     _set_point_indicator_size(YRB::PointsState::Reverse, _scaler->scale_width(20), _scaler->scale_height(20));
 
+    for(const char& block : block_ids) {
+        QString _block{block};
+        _block_svgs[block] = {
+          {YRB::SignalState::On, new QSvgWidget(":/svgs/media/Block" + _block + "_On.svg", _parent)},
+          {YRB::SignalState::Off, new QSvgWidget(":/svgs/media/Block" + _block + "_Off.svg", _parent)}
+        };
+    }
+    _set_block_size('A', _scaler->scale_width(60), _scaler->scale_height(10));
+    _set_block_position('A', _scaler->scale_width(42.5), _scaler->scale_height(153.4));
+    _block_svgs['A'][YRB::SignalState::Off]->hide();
+    _set_block_size('B', _scaler->scale_width(60), _scaler->scale_height(10));
+    _set_block_position('B', _scaler->scale_width(100), _scaler->scale_height(153.4));
+    _block_svgs['B'][YRB::SignalState::Off]->hide();
+    _set_block_size('C', _scaler->scale_width(70), _scaler->scale_height(10));
+    _set_block_position('C', _scaler->scale_width(161), _scaler->scale_height(153.4));
+    _block_svgs['C'][YRB::SignalState::Off]->hide();
+    _set_block_size('D', _scaler->scale_width(100), _scaler->scale_height(10));
+    _set_block_position('D', _scaler->scale_width(234), _scaler->scale_height(153.4));
+    _block_svgs['D'][YRB::SignalState::Off]->hide();
+    _set_block_size('E', _scaler->scale_width(105), _scaler->scale_height(70));
+    _set_block_position('E', _scaler->scale_width(333), _scaler->scale_height(99.8));
+    _block_svgs['E'][YRB::SignalState::Off]->hide();
+    _set_block_size('F', _scaler->scale_width(60), _scaler->scale_height(10));
+    _set_block_position('F', _scaler->scale_width(437), _scaler->scale_height(153.4));
+    _block_svgs['F'][YRB::SignalState::Off]->hide();
+    _set_block_size('G', _scaler->scale_width(60), _scaler->scale_height(10));
+    _set_block_position('G', _scaler->scale_width(437), _scaler->scale_height(107.3));
+    _block_svgs['G'][YRB::SignalState::Off]->hide();
 
     for(const int& sig_id : signal_ids)
     {
@@ -79,6 +107,18 @@ void YRB::Graphics::_set_point_indicator_position(const YRB::PointsState state, 
 
 void YRB::Graphics::_set_point_indicator_size(const YRB::PointsState state, const int x, const int y) {
     for(QSvgWidget* graphic : _point_ind_svgs[state]) {
+        graphic->setFixedSize(x, y);
+    }
+}
+
+void YRB::Graphics::_set_block_position(const char block, const int x, const int y) {
+    for(QSvgWidget* graphic : _block_svgs[block]) {
+        graphic->move(x, y);
+    }
+}
+
+void YRB::Graphics::_set_block_size(const char block, const int x, const int y) {
+    for(QSvgWidget* graphic : _block_svgs[block]) {
         graphic->setFixedSize(x, y);
     }
 }

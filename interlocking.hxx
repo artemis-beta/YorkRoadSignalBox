@@ -49,6 +49,7 @@ namespace YRB
         public:
             InterLocking(LeverFrame* lever_frame);
             BlockSection* getBlockSection(const char& id) const {return _block_sections[id];}
+            void setOccupied(char block, bool is_occupied=true);
             bool Query(const int& id);
             void update(const int& id);
         signals:
@@ -62,6 +63,7 @@ namespace YRB
                 qDebug() << "Updating points";
                 emit broadcastPoints(state);
             }
+            void linkBlocks(char block_1_id, char block_2_id);
 
     };
 };

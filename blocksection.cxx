@@ -7,10 +7,3 @@ YRB::TrackCircuitStatus YRB::BlockSection::getState() {
     }
     return occupied_;
 }
-
-void YRB::BlockSection::update()
-{
-    bool is_occupied_ = getState() == TrackCircuitStatus::Occupied;
-    _block_signal->setBlockOccupied(is_occupied_);
-    _block_signal->setOn(is_occupied_);
-}

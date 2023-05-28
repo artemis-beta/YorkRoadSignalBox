@@ -17,6 +17,20 @@
         <file>media/Sig_On.svg</file>
         <file>media/PointsIndicatorOff.svg</file>
         <file>media/PointsIndicatorOn.svg</file>
+        <file>media/BlockA_Off.svg</file>
+        <file>media/BlockA_On.svg</file>
+        <file>media/BlockB_Off.svg</file>
+        <file>media/BlockB_On.svg</file>
+        <file>media/BlockC_Off.svg</file>
+        <file>media/BlockC_On.svg</file>
+        <file>media/BlockD_Off.svg</file>
+        <file>media/BlockD_On.svg</file>
+        <file>media/BlockE_Off.svg</file>
+        <file>media/BlockE_On.svg</file>
+        <file>media/BlockF_Off.svg</file>
+        <file>media/BlockF_On.svg</file>
+        <file>media/BlockG_Off.svg</file>
+        <file>media/BlockG_On.svg</file>
     </qresource>
     <qresource prefix="/audio">
         <file>audio/lever_fail.wav</file>

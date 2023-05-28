@@ -27,6 +27,17 @@ YRMainWindow::YRMainWindow(QWidget *parent)
     connect(_interlocking, &YRB::InterLocking::broadcastPoints, _lever_frame, &YRB::LeverFrame::panelUpdate);
 }
 
+void YRMainWindow::_run_service() {
+
+    _service_position = 'A';
+
+    while(_service_position != 'G' && _service_position != 'F')
+    {
+        QTimer::singleShot(5000, this, &YRMainWindow::_move_service);
+    }
+    _service_position = '\0';
+}
+
 YRMainWindow::~YRMainWindow()
 {
     delete ui;

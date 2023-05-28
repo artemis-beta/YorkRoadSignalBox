@@ -87,13 +87,7 @@ void YRB::InterLocking::_perform_action(const int& i)
     {
         lever_active_signal_state state = _signal_lever_connections[i].second;
 
-        // If attempting lever on and the block is occupied then do not release signal
-        if(reverse(_lever_frame->operator[](i)->getState()) != YRB::LeverState::Off && state.first->protectedBlockOccupied())
-        {
-            qDebug() << "Could not release signal " << state.first->id() << ", Block Occupied";
-            return;
-        }
-        else if(reverse(_lever_frame->operator[](i)->getState()) == YRB::LeverState::On)
+        if(reverse(_lever_frame->operator[](i)->getState()) == YRB::LeverState::On)
         {
             qDebug() << "Setting Signal " << state.first->id() << " to On";
             state.first->setOn(true);
@@ -110,10 +104,12 @@ void YRB::InterLocking::_perform_action(const int& i)
         {
             qDebug() << "Setting Points to Reverse";
             _point_lever_connections[i].second->setState(YRB::PointsState::Reverse);
+            linkBlocks('E', 'G');
         }
         else {
             qDebug() << "Setting Points to Normal";
             _point_lever_connections[i].second->setState(YRB::PointsState::Normal);
+            linkBlocks('E', 'F');
         }
     }
 }
@@ -139,6 +135,19 @@ bool YRB::InterLocking::Query(const int& id)
     return true;
 }
 
+void YRB::InterLocking::linkBlocks(char block_1_id, char block_2_id)
+{
+    if(_block_sections.contains(block_1_id) && _block_sections.contains(block_2_id))
+    {
+        _block_sections[block_1_id]->setNeighbour(_block_sections[block_2_id]);
+    }
+}
+
+void YRB::InterLocking::setOccupied(char block, bool is_occupied)
+{
+    _block_sections[block]->setOccupied(is_occupied);
+}
+
 void YRB::InterLocking::_connect(const int& id, YRB::HomeLever* lever, YRB::Signal* signal, YRB::SignalState aspect)
 {
     _signal_lever_connections[id] = {};
@@ -162,7 +171,11 @@ void YRB::InterLocking::_setup_block_sections()
     _block_sections['C']->setBlockSignal(_signals[2]);
     _block_sections['F']->setBlockSignal(_signals[3]);
     _block_sections['E']->setBlockSignal(_signals[4]);
-
+    linkBlocks('A', 'B');
+    linkBlocks('B', 'C');
+    linkBlocks('C', 'D');
+    linkBlocks('D', 'E');
+    linkBlocks('E', 'F');
 }
 
 void YRB::InterLocking::_add_points()

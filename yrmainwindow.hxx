@@ -24,7 +24,16 @@ public:
 
 private:
     Ui::YRMainWindow *ui;
+    char _service_position{'\0'};
+    bool _simulation_running{false};
     void _lever_action(const int& i);
+    void _run_service();
     QMap<int, QPushButton*> _lever_frame_buttons;
+public slots:
+    void _move_service()
+    {
+       _interlocking->getBlockSection(_service_position)->setOccupied(true);
+       _service_position = _interlocking->getBlockSection(_service_position)->getNeighbour()->id();
+    }
 };
 #endif // YRMAINWINDOW_HXX
