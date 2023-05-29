@@ -17,6 +17,7 @@ SOURCES += \
     main.cpp \
     signal_2.cxx \
     signal_34.cxx \
+    simulationpanel.cxx \
     trackcircuit.cxx \
     yrmainwindow.cxx
 
@@ -32,6 +33,7 @@ HEADERS += \
     signal.hxx \
     signal_2.hxx \
     signal_34.hxx \
+    simulationpanel.hxx \
     trackcircuit.hxx \
     yrmainwindow.hxx
 

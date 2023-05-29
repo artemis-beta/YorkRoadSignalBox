@@ -22,7 +22,7 @@ private:
     QMap<YRB::SignalState, QSvgWidget*> subsid_stop_svgs_;
     QMap<YRB::SignalState, QSvgWidget*> subsid_clear_svgs_;
     QMap<YRB::SignalState, QSvgWidget*> subsid_amber_svgs_;
-    bool sig_34_clear_{false};
+    YRB::SignalState clear_state_{YRB::SignalState::Caution};
     YRB::SignalState current_state_{YRB::SignalState::On};
     void set_clear_sig_position_(const int x, const int y);
     void set_clear_sig_size_(const int x, const int y);
@@ -86,14 +86,18 @@ public slots:
     }
     void setSignal(int id, YRB::SignalState state) {
         if(id != 2) return;
+        state = (state == YRB::SignalState::On) ? state : clear_state_;
         QTimer::singleShot(500, this, [this, state](){setIntermediate(state);});
         QTimer::singleShot(1500, this, [this, state](){setAspect(state);});
-        if(state != YRB::SignalState::Caution) current_state_= state;
+        current_state_ = state;
     }
 
     void update34Status(bool at_danger) {
-        if(current_state_ != YRB::SignalState::On) emit setSignal(2, (at_danger) ? YRB::SignalState::Caution : YRB::SignalState::Off);
-        sig_34_clear_ = !at_danger;
+        clear_state_ = (at_danger) ? YRB::SignalState::Caution : YRB::SignalState::Off;
+        YRB::SignalState state = current_state_;
+        if(at_danger && current_state_ == YRB::SignalState::Off) state = YRB::SignalState::Caution;
+        else if(!at_danger && current_state_ == YRB::SignalState::Caution) state = YRB::SignalState::Off;
+        setSignal(2, state);
     }
 };
 

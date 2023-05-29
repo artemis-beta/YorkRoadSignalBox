@@ -37,6 +37,11 @@ public slots:
     void _move_service()
     {
        _interlocking->getBlockSection(_service_position)->setOccupied(true);
+
+       // Check that the signal of the neighbouring block is clear
+       if(_interlocking->getBlockSection(_service_position)->getNeighbour()->getBlockSignal()) {
+            if(_interlocking->getBlockSection(_service_position)->getNeighbour()->getBlockSignal()->getState() == YRB::SignalState::On) return;
+       }
        _service_position = _interlocking->getBlockSection(_service_position)->getNeighbour()->id();
     }
 };

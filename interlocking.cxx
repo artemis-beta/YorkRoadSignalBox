@@ -19,9 +19,6 @@ YRB::InterLocking::InterLocking(YRB::LeverFrame* lever_frame)
 
 void YRB::InterLocking::_create_logic_table()
 {
-    _logic[1] = {};                            // Lever 1 requires no conditions
-
-    _logic[2] = {};
 
     _logic[4] = {{YRB::LeverState::On,
                     {{6, YRB::LeverState::Off}, {3, YRB::LeverState::Off}}},
@@ -169,8 +166,11 @@ void YRB::InterLocking::_setup_block_sections()
         _block_sections[alpha] = new YRB::BlockSection(alpha);
     }
     _block_sections['C']->setBlockSignal(_signals[2]);
+    connect(_block_sections['C'], &YRB::BlockSection::blockStatusChanged, _signals[2], &YRB::Signal::signalUpdateFromBlock);
     _block_sections['F']->setBlockSignal(_signals[3]);
+    connect(_block_sections['F'], &YRB::BlockSection::blockStatusChanged, _signals[3], &YRB::Signal::signalUpdateFromBlock);
     _block_sections['E']->setBlockSignal(_signals[4]);
+    connect(_block_sections['E'], &YRB::BlockSection::blockStatusChanged, _signals[4], &YRB::Signal::signalUpdateFromBlock);
     linkBlocks('A', 'B');
     linkBlocks('B', 'C');
     linkBlocks('C', 'D');

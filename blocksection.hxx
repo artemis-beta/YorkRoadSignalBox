@@ -33,7 +33,6 @@ namespace YRB
             void setRequiredPointsState(QList<PointsState> states) {_required_points_state = states;}
             void setBlockSignal(Signal* signal) {
                 _block_signal = signal;
-                connect(this, &YRB::BlockSection::blockStatusChanged, _block_signal, &YRB::Signal::signalUpdateFromBlock);
             }
             void setBlockPoints(Points* points) {_points = points;}
             void setOccupied(bool is_occupied)
@@ -59,7 +58,7 @@ namespace YRB
                 _prev = other;
             }
        signals:
-            void blockStatusChanged(int is_occupied);
+            void blockStatusChanged(bool is_occupied);
 
     };
 };
