@@ -40,6 +40,9 @@
         <file>media/Sig34Subsid_GreenOn.svg</file>
         <file>media/Sig34Subsid_RedOn.svg</file>
         <file>media/Sig34Subsid_Off.svg</file>
+        <file>media/Sig34_AmberOn.svg</file>
+        <file>media/Signal2.svg</file>
+        <file>media/Sig34Subsid_AmberOn.svg</file>
     </qresource>
     <qresource prefix="/audio">
         <file>audio/lever_fail.wav</file>

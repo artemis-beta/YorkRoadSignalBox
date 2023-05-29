@@ -10,6 +10,7 @@ YRMainWindow::YRMainWindow(QWidget *parent)
     const YRB::Scaler* scaler_ = new YRB::Scaler;
     this->setFixedSize(scaler_->screen_width(), scaler_->screen_height());
     _signal_34->show();
+    _signal_2->show();
 
     for(int i{1}; i < 12; ++i)
     {
@@ -26,8 +27,10 @@ YRMainWindow::YRMainWindow(QWidget *parent)
     connect(_interlocking, &YRB::InterLocking::broadcastSignal, _signal_34, &Signal34::setSignal);
     connect(_interlocking, &YRB::InterLocking::broadcastPoints, _graphics, &YRB::Graphics::updatePointsGraphic);
     connect(_interlocking, &YRB::InterLocking::broadcastPoints, _signal_34, &Signal34::setFeatherIndicator);
+    connect(_interlocking, &YRB::InterLocking::broadcastSignal, _signal_2, &Signal2::setSignal);
     connect(_interlocking, &YRB::InterLocking::broadcastSignal, _lever_frame, &YRB::LeverFrame::panelUpdate);
     connect(_interlocking, &YRB::InterLocking::broadcastPoints, _lever_frame, &YRB::LeverFrame::panelUpdate);
+    connect(_signal_34, &Signal34::atDanger, _signal_2, &Signal2::update34Status);
 }
 
 void YRMainWindow::_run_service() {

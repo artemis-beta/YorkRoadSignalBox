@@ -8,6 +8,7 @@ namespace YRB
     enum class SignalState
     {
         On,
+        Caution,
         Off
     };
 

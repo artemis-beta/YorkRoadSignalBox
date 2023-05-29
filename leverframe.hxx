@@ -55,7 +55,6 @@ namespace YRB
                 emit frameUpdate(id, state);
             }
             void panelUpdate() {
-                qDebug() << "PLAYING SOUND";
                 _panel_update->play();
             }
     };

@@ -35,6 +35,8 @@ private:
     void set_signal_aspect(YRB::SignalState state);
 public:
     explicit Signal34(QWidget *parent = nullptr);
+signals:
+    void atDanger(bool danger);
 public slots:
     void setFeatherIndicator(YRB::PointsState state) {
         points_state_ = state;
@@ -48,13 +50,9 @@ public slots:
     }
 
     void setIntermediate() {
-        clear_svgs_[YRB::SignalState::On]->show();
         clear_svgs_[YRB::SignalState::Off]->show();
         stop_svgs_[YRB::SignalState::On]->show();
-        stop_svgs_[YRB::SignalState::Off]->show();
         subsid_stop_svgs_[YRB::SignalState::On]->show();
-        subsid_stop_svgs_[YRB::SignalState::Off]->show();
-        subsid_clear_svgs_[YRB::SignalState::On]->show();
         subsid_clear_svgs_[YRB::SignalState::Off]->show();
     }
 
@@ -64,6 +62,7 @@ public slots:
         emit setFeatherIndicator(points_state_);
         QTimer::singleShot(500, this, [this](){setIntermediate();});
         QTimer::singleShot(1500, this, [this, state](){setAspect(state);});
+        emit atDanger(signal_state_ == YRB::SignalState::On);
     }
 
     void setAspect(YRB::SignalState state) {
