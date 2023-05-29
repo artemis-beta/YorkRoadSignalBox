@@ -9,8 +9,10 @@ YRMainWindow::YRMainWindow(QWidget *parent)
     this->setWindowTitle("York Road Signal Frame");
     const YRB::Scaler* scaler_ = new YRB::Scaler;
     this->setFixedSize(scaler_->screen_width(), scaler_->screen_height());
+    _sim_timer->setInterval(500);
     _signal_34->show();
     _signal_2->show();
+    _sim_panel->show();
 
     for(int i{1}; i < 12; ++i)
     {
@@ -31,22 +33,8 @@ YRMainWindow::YRMainWindow(QWidget *parent)
     connect(_interlocking, &YRB::InterLocking::broadcastSignal, _lever_frame, &YRB::LeverFrame::panelUpdate);
     connect(_interlocking, &YRB::InterLocking::broadcastPoints, _lever_frame, &YRB::LeverFrame::panelUpdate);
     connect(_signal_34, &Signal34::atDanger, _signal_2, &Signal2::update34Status);
-}
-
-void YRMainWindow::_run_service() {
-
-    if(_simulation_running) {
-        qDebug() << "Simulation already running";
-        return;
-    }
-    _service_position = 'A';
-    _simulation_running = true;
-
-    while(_service_position != 'G' && _service_position != 'F')
-    {
-        QTimer::singleShot(5000, this, &YRMainWindow::_move_service);
-    }
-    _service_position = '\0';
+    connect(_sim_timer, &QTimer::timeout, this, &YRMainWindow::move_service);
+    connect(_sim_panel->runButton(), &QPushButton::clicked, this, &YRMainWindow::run_service);
 }
 
 YRMainWindow::~YRMainWindow()

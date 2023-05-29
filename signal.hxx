@@ -43,10 +43,7 @@ namespace YRB
             {
                 protected_block_occupied = is_occupied;
                 if(is_occupied) _current_state = SignalState::On;
-                else if(_current_state != _previous_state)
-                {
-                    _current_state = _previous_state;
-                }
+                _current_state = _previous_state;
             }
     };
 

@@ -13,7 +13,7 @@ namespace YRB {
     QSvgWidget* _frame_svg = nullptr;
     QMap<int, QMap<SignalState, QSvgWidget*>> _map_indicator_svgs;
     QMap<int, QMap<LeverState, QSvgWidget*>> _lever_svgs;
-    QMap<char, QMap<SignalState, QSvgWidget*>> _block_svgs;
+    QMap<char, QMap<bool, QSvgWidget*>> _block_svgs;
     QMap<PointsState, QMap<SignalState, QSvgWidget*>> _point_ind_svgs;
     Scaler* _scaler = new Scaler;
     void _place_signal_at(const int id, const int x, const int y);
@@ -51,6 +51,12 @@ namespace YRB {
                 _point_ind_svgs[YRB::PointsState::Reverse][YRB::SignalState::On]->show();
                 _point_ind_svgs[YRB::PointsState::Reverse][YRB::SignalState::Off]->hide();
             }
+        }
+        void updateBlockGraphic(char block, bool occupied)
+        {
+           _block_svgs[block][false]->hide();
+           _block_svgs[block][true]->hide();
+           _block_svgs[block][occupied]->show();
         }
     };
 };

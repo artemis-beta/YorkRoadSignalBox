@@ -166,11 +166,8 @@ void YRB::InterLocking::_setup_block_sections()
         _block_sections[alpha] = new YRB::BlockSection(alpha);
     }
     _block_sections['C']->setBlockSignal(_signals[2]);
-    connect(_block_sections['C'], &YRB::BlockSection::blockStatusChanged, _signals[2], &YRB::Signal::signalUpdateFromBlock);
     _block_sections['F']->setBlockSignal(_signals[3]);
-    connect(_block_sections['F'], &YRB::BlockSection::blockStatusChanged, _signals[3], &YRB::Signal::signalUpdateFromBlock);
     _block_sections['E']->setBlockSignal(_signals[4]);
-    connect(_block_sections['E'], &YRB::BlockSection::blockStatusChanged, _signals[4], &YRB::Signal::signalUpdateFromBlock);
     linkBlocks('A', 'B');
     linkBlocks('B', 'C');
     linkBlocks('C', 'D');
@@ -196,12 +193,16 @@ void YRB::InterLocking::_add_signals()
 
     _block_sections['C']->setBlockSignal(_signals[2]);
     _block_sections['C']->setRequiredState(YRB::SignalState::Off);
+    connect(_block_sections['C'], &YRB::BlockSection::blockStatusChanged, _signals[2], &YRB::Signal::signalUpdateFromBlock);
+
 
     _block_sections['E']->setBlockSignal(_signals[4]);
     _block_sections['E']->setRequiredState(YRB::SignalState::Off);
+    connect(_block_sections['E'], &YRB::BlockSection::blockStatusChanged, _signals[4], &YRB::Signal::signalUpdateFromBlock);
 
     _block_sections['F']->setBlockSignal(_signals[3]);
     _block_sections['F']->setRequiredState(YRB::SignalState::Off);
+    connect(_block_sections['F'], &YRB::BlockSection::blockStatusChanged, _signals[3], &YRB::Signal::signalUpdateFromBlock);
 }
 
 void YRB::InterLocking::_connect_levers()
