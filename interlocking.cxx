@@ -24,11 +24,11 @@ void YRB::InterLocking::_create_logic_table()
     _logic[2] = {};
 
     _logic[4] = {{YRB::LeverState::On,
-                    {{6, YRB::LeverState::Off}}},
+                    {{6, YRB::LeverState::Off}, {3, YRB::LeverState::Off}}},
                  {YRB::LeverState::Off, {}}
                 };
     _logic[3] = {{YRB::LeverState::On,
-                    {{6, YRB::LeverState::On}}},
+                  {{6, YRB::LeverState::On}, {4, YRB::LeverState::Off}}},
                  {YRB::LeverState::Off, {}}
                 };
     _logic[6] = {{YRB::LeverState::On,

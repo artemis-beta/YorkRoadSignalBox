@@ -31,6 +31,15 @@
         <file>media/BlockF_On.svg</file>
         <file>media/BlockG_Off.svg</file>
         <file>media/BlockG_On.svg</file>
+        <file>media/Signal34.svg</file>
+        <file>media/Feather_off.svg</file>
+        <file>media/Feather_on.svg</file>
+        <file>media/Sig34_GreenOn.svg</file>
+        <file>media/Sig34_Off.svg</file>
+        <file>media/Sig34_RedOn.svg</file>
+        <file>media/Sig34Subsid_GreenOn.svg</file>
+        <file>media/Sig34Subsid_RedOn.svg</file>
+        <file>media/Sig34Subsid_Off.svg</file>
     </qresource>
     <qresource prefix="/audio">
         <file>audio/lever_fail.wav</file>

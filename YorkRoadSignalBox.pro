@@ -15,6 +15,7 @@ SOURCES += \
     interlocking.cxx \
     leverframe.cxx \
     main.cpp \
+    signal_34.cxx \
     trackcircuit.cxx \
     yrmainwindow.cxx
 
@@ -28,6 +29,7 @@ HEADERS += \
     points.hxx \
     scaling.hxx \
     signal.hxx \
+    signal_34.hxx \
     trackcircuit.hxx \
     yrmainwindow.hxx
 

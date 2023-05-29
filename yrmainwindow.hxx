@@ -5,6 +5,7 @@
 #include "leverframe.hxx"
 #include "interlocking.hxx"
 #include "graphics.hxx"
+#include "signal_34.hxx"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class YRMainWindow; }
@@ -19,6 +20,7 @@ public:
     YRB::LeverFrame* _lever_frame = new YRB::LeverFrame(this);
     YRB::InterLocking* _interlocking = new YRB::InterLocking(_lever_frame);
     YRB::Graphics* _graphics = new YRB::Graphics(this);
+    Signal34* _signal_34 = new Signal34(this);
     QList<QThread*> _threads = {};
     ~YRMainWindow();
 
